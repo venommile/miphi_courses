@@ -1,23 +1,23 @@
-package ru.miphi.dz1;
+package ru.miphi.dz2;
 
 
 class Node {
     private Node next = null;
-    private Object instance = null;
+    private Integer instance = null;
     private Node prev = null;
 
 
-    Node(Object a) {
+    Node(Integer a) {
         this.instance = a;
 
     }
 
 
-    public Object getInstance() {
+    public Integer getInstance() {
         return instance;
     }
 
-    public void setInstance(Object instance) {
+    public void setInstance(Integer instance) {
         this.instance = instance;
     }
 

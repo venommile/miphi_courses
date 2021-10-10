@@ -8,7 +8,7 @@ public class Main {
         String input_string;
         input_string = sc.nextLine();
         String str = "";
-//        task1(input_string);
+        task1(input_string);
         task2(input_string);
 
 
@@ -16,20 +16,29 @@ public class Main {
 
     public static void task1(String input_string) {
 
-        HashMap<String, Integer> map = new HashMap();
+        HashMap<String, Integer> map = new LinkedHashMap();
         String str = "";
         for (int i = 0; i < input_string.length(); i++) {
             if (input_string.charAt(i) == ' ') {
                 if (str != "") {
                     if (map.containsKey(str)) {
                         int k = map.get(str);
-                        k++;
-                        map.put(str, k++);
+                        map.put(str, k + 1);
                     } else {
                         map.put(str, 1);
                     }
                 }
                 str = "";
+            } else if (i == input_string.length()-1) {
+                str += input_string.charAt(i);
+                if (map.containsKey(str)) {
+                    int k = map.get(str);
+                    map.put(str, k + 1);
+                } else {
+                    map.put(str, 1);
+                }
+
+
             } else {
                 str += input_string.charAt(i);
             }
@@ -41,7 +50,7 @@ public class Main {
     }
 
     public static void task2(String input_string) {
-        HashSet<String> set = new HashSet();
+        HashSet<String> set = new LinkedHashSet<>();
         String str = "";
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < input_string.length(); i++) {
@@ -59,7 +68,7 @@ public class Main {
             }
         }
         for (String key : list) {
-            System.out.print(key+" ");
+            System.out.print(key + " ");
         }
 
 

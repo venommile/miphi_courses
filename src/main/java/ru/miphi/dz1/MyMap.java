@@ -2,10 +2,10 @@ package ru.miphi.dz1;
 
 import java.util.Objects;
 
-//разобраться с индексами
+
 public class MyMap {
     protected MyLinkedList map = new MyLinkedList();
-    private Comparator comparator = new Comparator();
+    final private Comparator comparator = new Comparator();
 
 
     public void put(Object key, Object value) {
@@ -46,7 +46,7 @@ public class MyMap {
         if (comparator.equals(((MyPair) element.getInstance()).getKey(), key)) {
             return new MyPair(element.getInstance(), i);
         }
-        return new MyPair(element.getInstance(), -1);
+        return new MyPair(element.getInstance(), -1);//element,-1
     }
 
     public Object get(Object key, Object bydefault) {

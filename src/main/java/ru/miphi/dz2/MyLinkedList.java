@@ -1,12 +1,12 @@
-package ru.miphi.dz1;
+package ru.miphi.dz2;
 
 
-import java.util.Objects;
+import ru.miphi.dz1.Comparator;
 
 public class MyLinkedList {
     private Node head = null;
     private int length = 0;
-    final private Comparator comparator = new Comparator();
+    private final Comparator comparator = new Comparator();
 
 
     public MyLinkedList() {
@@ -17,7 +17,7 @@ public class MyLinkedList {
         return this.head;
     }
 
-    public void add(Object a) {
+    public void add(Integer a) {
 
         if (this.length == 0) {
             head = new Node(a);
@@ -38,7 +38,7 @@ public class MyLinkedList {
 
     }//works
 
-    public void add(Object a, int index) {
+    public void add(Integer a, int index) {
         if (index >= this.length) {
             add(a);
 
@@ -73,14 +73,14 @@ public class MyLinkedList {
         }
     } //если index>size()-1->добавляем в конец,если index<0 ничего не делаем
 
-    public Object remove(int index) {
+    public Integer remove(int index) {
         if (index < 0 || index >= this.length) {
             return null;
         } else if (index == 0) {
             Node element = this.head;
             this.head = this.head.getNext();
             this.length--;
-            return element.getInstance();
+            return (Integer) element.getInstance();
 
         } else {
             Node element = searchElement(index);
@@ -92,12 +92,12 @@ public class MyLinkedList {
             }
 
             this.length--;
-            return ans.getInstance();
+            return (Integer) ans.getInstance();
         }
 
     } // works
 
-    public Object get(int index) {
+    public Integer get(int index) {
         if (index < 0 || index >= this.length) {
             return null;
         } else {
@@ -116,7 +116,7 @@ public class MyLinkedList {
         return element;
     }
 
-    public Object set(Object a, int index) {
+    public Integer set(Integer a, int index) {
         if (index < 0 || index >= this.length) {
             return null;
 
@@ -125,7 +125,7 @@ public class MyLinkedList {
             Node ans = this.head;
             element.setNext(head.getNext());
             this.head = element;
-            return ans;
+            return (Integer) ans.getInstance();
 
         } else {
             Node element = searchElement(index);
@@ -154,11 +154,11 @@ public class MyLinkedList {
         return this.length == 0;
     }//works
 
-    public boolean contains(Object a) {
+    public boolean contains(Integer a) {
         return indexOf(a) != -1;
     } // works
 
-    public int indexOf(Object a) {
+    public int indexOf(Integer a) {
         Node element = this.head;//при нескольких одинаковых вернуть первый добавленный?
         int i = 0;
 
@@ -207,4 +207,65 @@ public class MyLinkedList {
         }
         return true;
     }
+
+    public static Node merge(Node head1, Node head2) {
+        MyLinkedList ans = new MyLinkedList();
+        while (head1 != null || head2 != null) {
+            if (head1 == null) {
+                ans.add(head2.getInstance());
+                head2 = head2.getNext();
+            } else if (head2 == null) {
+                ans.add(head1.getInstance());
+                head1 = head1.getNext();
+            } else if (head1.getInstance() >= head2.getInstance()) {
+                ans.add(head2.getInstance());
+                head2 = head2.getNext();
+            } else if (head2.getInstance() > head1.getInstance()) {
+                ans.add(head1.getInstance());
+                head1 = head1.getNext();
+
+            }
+            int i = 0;
+        }
+
+        return ans.getHead();
+    }
+
+    public static MyLinkedList merge(MyLinkedList list1, MyLinkedList list2) {
+        MyLinkedList ans = new MyLinkedList();
+        int k1 = 0, k2 = 0;
+        while (k1 < list1.size() || k2 < list2.size()) {
+            if (k1 >= list1.size()) {
+                ans.add(list2.get(k2));
+                k2++;
+            }
+            else if (k2 >= list2.size()) {
+                ans.add(list1.get(k1));
+                k1++;
+            }
+            else if (list1.get(k1) <= list2.get(k2)) {
+                ans.add(list1.get(k1));
+                k1++;
+            } else {
+                ans.add(list2.get(k2));
+                k2++;
+
+            }
+
+
+        }
+        return ans;
+
+    }
+
+    public void print() {
+        Node head = this.head;
+        System.out.print('[');
+        while (head.getNext() != null) {
+            System.out.print(head.getInstance() + ", ");
+            head = head.getNext();
+        }
+        System.out.print(head.getInstance()+"]"+"\n");
+    }
+
 }
