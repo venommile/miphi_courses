@@ -1,7 +1,8 @@
 package ru.miphi.lab2;
 
-import java.util.*;
+import lombok.Builder;
 
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -16,7 +17,7 @@ public class Main {
 
     public static void task1(String input_string) {
 
-        HashMap<String, Integer> map = new LinkedHashMap();
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
         String str = "";
         for (int i = 0; i < input_string.length(); i++) {
             if (input_string.charAt(i) == ' ') {
