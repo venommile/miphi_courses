@@ -1,14 +1,12 @@
 package ru.miphi.lab2;
 
-import lombok.Builder;
-
 import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input_string;
         input_string = sc.nextLine();
-        String str = "";
         task1(input_string);
         task2(input_string);
 
@@ -21,7 +19,7 @@ public class Main {
         String str = "";
         for (int i = 0; i < input_string.length(); i++) {
             if (input_string.charAt(i) == ' ') {
-                if (str != "") {
+                if (!str.equals("")) {
                     if (map.containsKey(str)) {
                         int k = map.get(str);
                         map.put(str, k + 1);
@@ -30,7 +28,7 @@ public class Main {
                     }
                 }
                 str = "";
-            } else if (i == input_string.length()-1) {
+            } else if (i == input_string.length() - 1) {
                 str += input_string.charAt(i);
                 if (map.containsKey(str)) {
                     int k = map.get(str);
@@ -53,10 +51,10 @@ public class Main {
     public static void task2(String input_string) {
         HashSet<String> set = new LinkedHashSet<>();
         String str = "";
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < input_string.length(); i++) {
             if (input_string.charAt(i) == ' ') {
-                if (str != "") {
+                if (!str.equals("")) {
                     if (!set.contains(str)) {
                         set.add(str);
                         list.add(str);
