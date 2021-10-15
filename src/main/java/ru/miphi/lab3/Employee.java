@@ -277,7 +277,7 @@ public class Employee {
                     this.role = Role.EXECUTIVE;
                     break;
                 default:
-                    throw new IllegalArgumentException("Not correct role,expected \"male\" or \"female\"");
+                    throw new IllegalArgumentException("Not correct role,expected \"STAFF\" or \"MANAGER\" or \"EXECUTIVE\"");
             }
             return this;
         }
