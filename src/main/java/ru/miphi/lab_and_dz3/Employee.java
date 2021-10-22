@@ -1,4 +1,4 @@
-package ru.miphi.lab3;
+package ru.miphi.lab_and_dz3;
 
 import lombok.Getter;
 import lombok.Setter;

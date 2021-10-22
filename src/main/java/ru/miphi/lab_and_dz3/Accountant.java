@@ -1,4 +1,4 @@
-package ru.miphi.lab3;
+package ru.miphi.lab_and_dz3;
 
 public class Accountant {
     public static void paySalary(Employee employee) {
