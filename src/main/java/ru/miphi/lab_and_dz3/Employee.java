@@ -1,13 +1,9 @@
 package ru.miphi.lab_and_dz3;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-@Getter
-@Setter
 public class Employee {
     Employee(String givenName, String surName, Integer age, Gender gender, Role role, String dept,
              String eMail, String phone, String address, String city, String state, String code) {
@@ -239,15 +235,13 @@ public class Employee {
             return this;
         }
 
-        public EmployeeBuilder age(Integer age) throws IllegalArgumentException {
-            if (age < 0) {
-                throw new IllegalArgumentException("Number have to be more than zero");
-            }
+        public EmployeeBuilder age(Integer age){
+
             this.age = age;
             return this;
         }
 
-        public EmployeeBuilder gender(String gender) throws IllegalArgumentException {
+        public EmployeeBuilder gender(String gender){
             if (gender.toLowerCase(Locale.ROOT).equals("w") ||
                     gender.toLowerCase(Locale.ROOT).equals("woman") ||
                     gender.toLowerCase(Locale.ROOT).equals("f") ||
@@ -259,13 +253,11 @@ public class Employee {
                     gender.toLowerCase(Locale.ROOT).equals("male")
             ) {
                 this.gender = Gender.MALE;
-            } else {
-                throw new IllegalArgumentException("Not correct gender,expected \"male\" or \"female\"");
             }
             return this;
         }
 
-        public EmployeeBuilder role(String role) throws IllegalArgumentException {
+        public EmployeeBuilder role(String role){
             switch (role.toLowerCase(Locale.ROOT)) {
                 case "staff":
                     this.role = Role.STAFF;
@@ -276,8 +268,7 @@ public class Employee {
                 case "executive":
                     this.role = Role.EXECUTIVE;
                     break;
-                default:
-                    throw new IllegalArgumentException("Not correct role,expected \"STAFF\" or \"MANAGER\" or \"EXECUTIVE\"");
+
             }
             return this;
         }
@@ -318,6 +309,19 @@ public class Employee {
         }
 
         public Employee build() {
+
+            if (this.age < 0) {
+                throw new IllegalArgumentException("Age have to be more than zero");
+            }
+            if (this.role == null){
+                throw new IllegalArgumentException("Not correct role,expected \"STAFF\" or \"MANAGER\" or \"EXECUTIVE\"");
+
+            }
+            if (this.gender == null){
+                throw new IllegalArgumentException("Not correct gender,expected \"male\" or \"female\"");
+            }
+
+
             return new Employee(givenName, surName, age, gender, role, dept, eMail, phone, address, city, state, code);
 
         }
@@ -325,5 +329,99 @@ public class Employee {
 
     }
 
+    public String getGivenName() {
+        return givenName;
+    }
 
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }
