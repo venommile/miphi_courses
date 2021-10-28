@@ -3,37 +3,37 @@ package ru.miphi.lab_and_dz3;
 public class Accountant {
     public static void paySalary(Employee employee) {
         String sum = "";
-        if (employee.role.equals(Employee.Role.EXECUTIVE)) {
+        if (employee.getRole().equals(Role.EXECUTIVE)) {
             sum = "10000$";
 
-        } else if (employee.role.equals(Employee.Role.MANAGER)) {
+        } else if (employee.getRole().equals(Role.MANAGER)) {
             sum = "2000$";
-        } else if (employee.role.equals(Employee.Role.STAFF)) {
+        } else if (employee.getRole().equals(Role.STAFF)) {
             sum = "300$";
 
         }
         System.out.println("Pay salary to " +
-                employee.givenName + " " +
-                employee.surName + " " +
+                employee.getGivenName() + " " +
+                employee.getSurName() + " " +
                 sum
         );
     }
 
     public static void payPremium(Employee employee) {
         int sum = 0;
-        if (employee.role.equals(Employee.Role.EXECUTIVE)) {
+        if (employee.getRole().equals(Role.EXECUTIVE)) {
             sum = 10000;
-        } else if (employee.role.equals(Employee.Role.MANAGER)) {
+        } else if (employee.getRole().equals(Role.MANAGER)) {
             sum = 2000;
-        } else if (employee.role.equals(Employee.Role.STAFF)) {
+        } else if (employee.getRole().equals(Role.STAFF)) {
             sum = 300;
         }
         System.out.println("Pay" + " " +
-                sum * (double) employee.role.getPercentPremium() / 100 +
+                sum * (double) employee.getRole().getPercentPremium() / 100 +
                 "$ " +
                 "premium" + " to " +
-                employee.givenName + " " +
-                employee.surName
+                employee.getSurName() + " " +
+                employee.getSurName()
         );
 
 

@@ -11,29 +11,28 @@ public class Main {
         ArrayList<Employee> employeeList = Employee.createShortList();
 
 
-        employeeList.stream().filter(p -> p.gender.equals(Employee.Gender.FEMALE)).forEach(Accountant::payPremium);
+        employeeList.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).forEach(Accountant::payPremium);
 
-        employeeList.stream().filter(p -> p.dept.equals("finance")).forEach(Accountant::paySalary);
+        employeeList.stream().filter(p -> p.getDept().equals("finance")).forEach(Accountant::paySalary);
 
-        employeeList.stream().filter(p -> p.dept.equals("finance")).filter(p -> p.age > 30).forEach(Accountant::payPremium);
+        employeeList.stream().filter(p -> p.getDept().equals("finance")).filter(p -> p.getAge() > 30).forEach(Accountant::payPremium);
 
-        employeeList.stream().filter(p -> p.role.equals(Employee.Role.MANAGER)).forEach(Accountant::paySalary);
+        employeeList.stream().filter(p -> p.getRole().equals(Role.MANAGER)).forEach(Accountant::paySalary);
 
-        employeeList.stream().filter(p -> p.role.equals(Employee.Role.STAFF)).forEach(Accountant::paySalary);
+        employeeList.stream().filter(p -> p.getRole().equals(Role.STAFF)).forEach(Accountant::paySalary);
 
         Consumer<Employee> shortInfo =
                 p -> System.out.println("{ "
-                        + p.givenName + "| "
-                        + p.surName + "| "
-                        + p.dept + "| "
-                        + p.role.toString() +"| "
-                        + p.age.toString()
-
+                        + p.getGivenName() + "| "
+                        + p.getSurName() + "| "
+                        + p.getDept() + "| "
+                        + p.getRole().toString() + "| "
+                        + p.getAge().toString()
                         + " }");
         employeeList.forEach(shortInfo);
 
 
-        Function<Employee, Integer> workDayLength = p -> Math.toIntExact(Math.round(p.age / 10d * 1.5));
+        Function<Employee, Integer> workDayLength = p -> Math.toIntExact(Math.round(p.getAge() / 10d * 1.5));
         employeeList.stream().map(workDayLength).forEach(System.out::println);
 
 
@@ -49,7 +48,7 @@ public class Main {
         shortInfo.accept(human1);
         shortInfo.accept(human2);
 
-        System.out.println(isOlder.test(human1,human2));
+        System.out.println(isOlder.test(human1, human2));
 
     }
 }

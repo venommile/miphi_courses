@@ -4,7 +4,7 @@ import java.util.Objects;
 
 
 public class MyMap {
-    protected MyLinkedList map = new MyLinkedList();
+    private MyLinkedList map = new MyLinkedList();
     final private Comparator comparator = new Comparator();
 
 

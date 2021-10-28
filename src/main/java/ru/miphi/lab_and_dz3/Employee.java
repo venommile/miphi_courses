@@ -7,7 +7,7 @@ import java.util.Locale;
 public class Employee {
     Employee(String givenName, String surName, Integer age, Gender gender, Role role, String dept,
              String eMail, String phone, String address, String city, String state, String code) {
-        this.givenName = givenName;
+        this.givenName = givenName;//To builder
         this.surName = surName;
         this.age = age;
         this.gender = gender;
@@ -20,42 +20,30 @@ public class Employee {
         this.state = state;
         this.code = code;
 
-
     }
 
-    protected String givenName;
-    protected String surName;
-    protected Integer age;
+    private String givenName;//to private
+    private String surName;
+    private Integer age;
 
 
-    protected enum Gender {MALE, FEMALE}
-
-    protected Gender gender;
 
 
-    protected enum Role {
-        STAFF(10), MANAGER(20), EXECUTIVE(30);
-        int percentPremium;
-
-        Role(int percentPremium) {
-            this.percentPremium = percentPremium;
-        }
-
-        int getPercentPremium() {
-            return percentPremium;
-        }
-    }
+    private Gender gender;
 
 
-    protected Role role;
+ // вынести за предел класса
 
-    protected String dept;
-    protected String eMail;
-    protected String phone;
-    protected String address;
-    protected String city;
-    protected String state;
-    protected String code;
+
+    private Role role;
+
+    private String dept;
+    private String eMail;
+    private String phone;
+    private String address;
+    private String city;
+    private String state;
+    private String code;
 
     @Override
     public String toString() {
@@ -204,22 +192,22 @@ public class Employee {
     }
 
     public static class EmployeeBuilder {
-        protected String givenName = "";
-        protected String surName = "";
-        protected Integer age = null;
+        private String givenName = "";
+        private String surName = "";
+        private Integer age = null;
 
 
-        protected Employee.Gender gender;
+        private Gender gender;
 
-        protected Employee.Role role;
+        private Role role;
 
-        protected String dept = "";
-        protected String eMail = "";
-        protected String phone = "";
-        protected String address = "";
-        protected String city = "";
-        protected String state = "";
-        protected String code = "";
+        private String dept = "";
+        private String eMail = "";
+        private String phone = "";
+        private String address = "";
+        private String city = "";
+        private String state = "";
+        private String code = "";
 
         public EmployeeBuilder() {
             super();
@@ -235,13 +223,13 @@ public class Employee {
             return this;
         }
 
-        public EmployeeBuilder age(Integer age){
+        public EmployeeBuilder age(Integer age) {
 
             this.age = age;
             return this;
         }
 
-        public EmployeeBuilder gender(String gender){
+        public EmployeeBuilder gender(String gender) {
             if (gender.toLowerCase(Locale.ROOT).equals("w") ||
                     gender.toLowerCase(Locale.ROOT).equals("woman") ||
                     gender.toLowerCase(Locale.ROOT).equals("f") ||
@@ -257,7 +245,7 @@ public class Employee {
             return this;
         }
 
-        public EmployeeBuilder role(String role){
+        public EmployeeBuilder role(String role) {
             switch (role.toLowerCase(Locale.ROOT)) {
                 case "staff":
                     this.role = Role.STAFF;
@@ -313,11 +301,11 @@ public class Employee {
             if (this.age < 0) {
                 throw new IllegalArgumentException("Age have to be more than zero");
             }
-            if (this.role == null){
+            if (this.role == null) {
                 throw new IllegalArgumentException("Not correct role,expected \"STAFF\" or \"MANAGER\" or \"EXECUTIVE\"");
 
             }
-            if (this.gender == null){
+            if (this.gender == null) {
                 throw new IllegalArgumentException("Not correct gender,expected \"male\" or \"female\"");
             }
 
