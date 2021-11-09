@@ -5,34 +5,29 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class Employee {
-    Employee(String givenName, String surName, Integer age, Gender gender, Role role, String dept,
-             String eMail, String phone, String address, String city, String state, String code) {
-        this.givenName = givenName;//To builder
-        this.surName = surName;
-        this.age = age;
-        this.gender = gender;
-        this.role = role;
-        this.dept = dept;
-        this.eMail = eMail;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.code = code;
+    private Employee(EmployeeBuilder Builder) {
+        this.givenName = Builder.givenName;
+        this.surName = Builder.surName;
+        this.age = Builder.age;
+        this.gender = Builder.gender;
+        this.role = Builder.role;
+        this.dept = Builder.dept;
+        this.eMail = Builder.eMail;
+        this.phone = Builder.phone;
+        this.address = Builder.address;
+        this.city = Builder.city;
+        this.state = Builder.state;
+        this.code = Builder.code;
+        this.salary = Builder.salary;
 
     }
 
-    private String givenName;//to private
+    private String givenName;
     private String surName;
     private Integer age;
 
 
-
-
     private Gender gender;
-
-
- // вынести за предел класса
 
 
     private Role role;
@@ -44,6 +39,8 @@ public class Employee {
     private String city;
     private String state;
     private String code;
+
+    private Double salary;
 
     @Override
     public String toString() {
@@ -60,6 +57,7 @@ public class Employee {
                 "city:" + city + " " +
                 "state:" + state + " " +
                 "code:" + code + " " +
+                "salary" + salary + " " +
                 "}";
 
     }
@@ -79,6 +77,7 @@ public class Employee {
                 .city("Moscow")
                 .state("Moscow")
                 .code("77")
+                .salary(1000.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -94,6 +93,7 @@ public class Employee {
                 .city("Moscow")
                 .state("Moscow")
                 .code("77")
+                .salary(500.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -109,6 +109,7 @@ public class Employee {
                 .city("Tula")
                 .state("Tula state")
                 .code("71")
+                .salary(2000.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -124,6 +125,7 @@ public class Employee {
                 .city("Sankt-Peterburg")
                 .state("Leningradskaya oblast")
                 .code("812")
+                .salary(700.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -139,6 +141,7 @@ public class Employee {
                 .city("Korolev")
                 .state("Moscow oblast")
                 .code("812")
+                .salary(400.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -154,6 +157,7 @@ public class Employee {
                 .city("Tomsk")
                 .state("Tomsky oblast")
                 .code("70")
+                .salary(540.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -169,6 +173,7 @@ public class Employee {
                 .city("Kostroma")
                 .state("Kostromsky oblast")
                 .code("4492")
+                .salary(3000.0)
                 .build()
         );
         employees.add(new EmployeeBuilder()
@@ -184,6 +189,7 @@ public class Employee {
                 .city("Tver")
                 .state("Tverkoy oblast")
                 .code("169")
+                .salary(700.0)
                 .build()
         );
 
@@ -208,6 +214,8 @@ public class Employee {
         private String city = "";
         private String state = "";
         private String code = "";
+
+        private Double salary;
 
         public EmployeeBuilder() {
             super();
@@ -296,6 +304,11 @@ public class Employee {
             return this;
         }
 
+        public EmployeeBuilder salary(Double salary) {
+            this.salary = salary;
+            return this;
+        }
+
         public Employee build() {
 
             if (this.age < 0) {
@@ -310,7 +323,7 @@ public class Employee {
             }
 
 
-            return new Employee(givenName, surName, age, gender, role, dept, eMail, phone, address, city, state, code);
+            return new Employee(this);
 
         }
 
@@ -411,5 +424,13 @@ public class Employee {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public Double getSalary() {
+        return this.salary;
     }
 }

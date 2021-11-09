@@ -4,6 +4,7 @@ public enum Role {
     STAFF(10), MANAGER(20), EXECUTIVE(30);
     int percentPremium;
 
+
     Role(int percentPremium) {
         this.percentPremium = percentPremium;
     }
@@ -11,4 +12,5 @@ public enum Role {
     int getPercentPremium() {
         return percentPremium;
     }
+
 }

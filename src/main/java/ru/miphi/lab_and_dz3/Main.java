@@ -1,54 +1,78 @@
 package ru.miphi.lab_and_dz3;
 
-import java.util.ArrayList;
-import java.util.function.BiPredicate;
+import java.util.Comparator;
+import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Employee> employeeList = Employee.createShortList();
-
-
-        employeeList.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).forEach(Accountant::payPremium);
-
-        employeeList.stream().filter(p -> p.getDept().equals("finance")).forEach(Accountant::paySalary);
-
-        employeeList.stream().filter(p -> p.getDept().equals("finance")).filter(p -> p.getAge() > 30).forEach(Accountant::payPremium);
-
-        employeeList.stream().filter(p -> p.getRole().equals(Role.MANAGER)).forEach(Accountant::paySalary);
-
-        employeeList.stream().filter(p -> p.getRole().equals(Role.STAFF)).forEach(Accountant::paySalary);
-
-        Consumer<Employee> shortInfo =
-                p -> System.out.println("{ "
-                        + p.getGivenName() + "| "
-                        + p.getSurName() + "| "
-                        + p.getDept() + "| "
-                        + p.getRole().toString() + "| "
-                        + p.getAge().toString()
-                        + " }");
-        employeeList.forEach(shortInfo);
-
-
-        Function<Employee, Integer> workDayLength = p -> Math.toIntExact(Math.round(p.getAge() / 10d * 1.5));
-        employeeList.stream().map(workDayLength).forEach(System.out::println);
-
-
-        Supplier<Employee> randomEmployee = () -> {
-            int value = (int) (Math.random() * employeeList.size());
-            return employeeList.get(value);
+        List<Employee> employeeList = Employee.createShortList();
+        Consumer<Employee> newYear = employee -> employee.setAge(employee.getAge() + 1);
+        Consumer<Employee> wageIndexation = employee -> employee.setSalary(employee.getSalary() * 1.05);
+        Function<Employee, String> ruPhoneParse = emloyee -> {
+            String phone = emloyee.getPhone();
+            if (phone.charAt(0) == '+') {
+                return '8' + phone.substring(2);
+            } else {
+                return phone;
+            }
         };
-        System.out.println(randomEmployee.get());
 
-        BiPredicate<Employee, Employee> isOlder = (p1, p2) -> p1.getAge() > p2.getAge();
-        Employee human1 = randomEmployee.get();
-        Employee human2 = randomEmployee.get();
-        shortInfo.accept(human1);
-        shortInfo.accept(human2);
+        employeeList.stream().map(ruPhoneParse).forEach(System.out::println);
 
-        System.out.println(isOlder.test(human1, human2));
+
+        employeeList.stream().peek(employee -> System.out.println("before " + ":" + employee.getAge())).forEach(
+                employee -> {
+                    newYear.accept(employee);
+                    System.out.println("after" + ":" + employee.getAge());
+                }
+        );
+        employeeList.stream().peek(employee ->
+                System.out.println("before " + ":" + employee.getSalary())).forEach(
+                employee -> {
+                    wageIndexation.accept(employee);
+                    System.out.println("after" + ":" + employee.getSalary());
+                }
+        );
+        System.out.println(employeeList);
+        System.out.println(employeeList.stream().filter(employee -> employee.getRole().equals(Role.EXECUTIVE)).
+                findFirst().orElseThrow(() -> new RuntimeException("No Executive!")));
+        System.out.println(employeeList.stream().filter(employee -> employee.getAge() > 40).
+                findFirst().orElseThrow(() -> new RuntimeException("No Executive!")));
+
+        //lazy операции peek,filter,map,  же lazy?
+        System.out.println(employeeList.stream().max(
+                Comparator.comparingDouble(Employee::getSalary)
+        ).orElseThrow(() -> new RuntimeException("No employees!")));
+        System.out.println(employeeList.stream().max(
+                Comparator.comparingDouble(Employee::getAge)
+        ).orElseThrow(() -> new RuntimeException("No employees!")));
+
+        System.out.println(employeeList.stream().min(
+                Comparator.comparingDouble(Employee::getAge)
+        ).orElseThrow(() -> new RuntimeException("No employees!")));
+
+        double sumSalaries = employeeList.stream().mapToDouble(Employee::getSalary).sum();
+        System.out.println(sumSalaries);
+
+        System.out.println(employeeList.stream().filter(employee -> employee.getRole().equals(Role.STAFF))
+                .mapToDouble(Employee::getSalary).sum());
+
+        OptionalDouble averageAge = employeeList.stream().mapToInt(Employee::getAge).average(); //2й map,average
+        Double middleAge = averageAge.orElseThrow(
+                () -> new RuntimeException("No employees!")
+        );
+        System.out.println(middleAge);
+
+
+        System.out.println(employeeList.stream().
+                mapToDouble(Employee::getSalary).
+                average().
+                orElseThrow(
+                        () -> new RuntimeException("No employees!")
+                ));//average salary
 
     }
 }
