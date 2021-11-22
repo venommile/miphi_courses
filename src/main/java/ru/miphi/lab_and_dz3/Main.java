@@ -9,10 +9,12 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         List<Employee> employeeList = Employee.createShortList();
+        //double -> big Decimal
+
         Consumer<Employee> newYear = employee -> employee.setAge(employee.getAge() + 1);
         Consumer<Employee> wageIndexation = employee -> employee.setSalary(employee.getSalary() * 1.05);
-        Function<Employee, String> ruPhoneParse = emloyee -> {
-            String phone = emloyee.getPhone();
+        Function<Employee, String> ruPhoneParse = employee -> {
+            String phone = employee.getPhone();
             if (phone.charAt(0) == '+') {
                 return '8' + phone.substring(2);
             } else {
@@ -36,16 +38,20 @@ public class Main {
                     System.out.println("after" + ":" + employee.getSalary());
                 }
         );
+        System.out.println("-------------------------------");
         System.out.println(employeeList);
         System.out.println(employeeList.stream().filter(employee -> employee.getRole().equals(Role.EXECUTIVE)).
-                findFirst().orElseThrow(() -> new RuntimeException("No Executive!")));
+                findFirst().orElseThrow(() -> new RuntimeException("No Executive!")));//!
         System.out.println(employeeList.stream().filter(employee -> employee.getAge() > 40).
                 findFirst().orElseThrow(() -> new RuntimeException("No Executive!")));
 
         //lazy операции peek,filter,map,  же lazy?
+        System.out.println("-------------------------------");
+        employeeList.stream().peek(System.out::println).filter(employee -> employee.getAge()>40).forEach(System.out::println);
+
         System.out.println(employeeList.stream().max(
                 Comparator.comparingDouble(Employee::getSalary)
-        ).orElseThrow(() -> new RuntimeException("No employees!")));
+        ).orElseThrow(() -> new RuntimeException("No employees!")));//!!
         System.out.println(employeeList.stream().max(
                 Comparator.comparingDouble(Employee::getAge)
         ).orElseThrow(() -> new RuntimeException("No employees!")));
