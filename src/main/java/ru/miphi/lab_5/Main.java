@@ -65,7 +65,7 @@ public class Main {
             generateStackOverflowError();
         }
         catch (StackOverflowError stackOverflowError){
-            System.out.println("Stack over flow!!");
+            System.out.println("Stack overflow!!");
             System.out.println("-------------------");
 
         }

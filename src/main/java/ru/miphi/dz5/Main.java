@@ -89,12 +89,19 @@ public class Main {
 
         var endSchool = LocalDate.of(2022, 6, 22);
 
-        long days = startSchool.until(endSchool, DAYS) - 28;//вычитаем выходные недели;
-        days -= (days + 6) / 7 * 2;// округляем вверх кол-во выходных
+        long workWeeks = ChronoUnit.WEEKS.between(startSchool, endSchool) - 4;
+        long days = workWeeks * 5; //в каждой недели ровно 5 рабочих дней тут 180
+
+        //p.s. может быть нам надо прибавить последнюю неделю.
+        days += endSchool.getDayOfWeek().ordinal();//если
+        if (endSchool.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+            days--; //если сейчас воскресенье,вычитаем выходную субботу
+        }
         System.out.println(days);
 
     }
 
+    //taskOne
     public static void taskOne6() {
         if (LocalDateTime.now().isBefore(
                 LocalDateTime.now().
